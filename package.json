@@ -1,0 +1,31 @@
+{
+  "name": "my-books-history",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "json": "json-server ./db.json --watch --port 3001",
+    "serv": "concurrently \"npm run json\" \"npm run dev\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nextui-org/react": "^1.0.0-beta.6",
+    "axios": "^0.27.1",
+    "next": "^12.1.5",
+    "nextjs-progressbar": "^0.0.14",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-transition-group": "^4.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.27",
+    "@types/react": "^18.0.7",
+    "concurrently": "^7.1.0",
+    "json-server": "^0.17.0",
+    "typescript": "^4.6.3"
+  }
+}
