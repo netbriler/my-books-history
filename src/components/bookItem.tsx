@@ -1,15 +1,11 @@
 import React, {useEffect} from "react";
 import {Card, Col, Grid, Text} from "@nextui-org/react";
 
+//TODO Book interface
 const BookList = ({book}) => {
-    useEffect(() => {
-        return () => console.log('unmount')
-    }, [])
-
     return (
-
         <Grid className={'flasher'}>
-            <Card cover hoverable clickable>
+            <Card cover hoverable clickable bordered>
                 {book.volumeInfo.imageLinks ? '' :
                     <Card.Header css={{position: "absolute", zIndex: 1, top: 5}}>
                         <Col>
@@ -25,7 +21,7 @@ const BookList = ({book}) => {
                     </Card.Header>
                 }
                 <Card.Image
-                    src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "http://www.proedsolutions.com/wp-content/themes/micron/images/placeholders/placeholder_small_dark.jpg"}
+                    src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "/book-placeholder.jpg"}
                     height={200}
                     width={130}
                     alt={book.volumeInfo.title}
