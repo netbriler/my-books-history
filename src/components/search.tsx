@@ -24,7 +24,7 @@ const Search: FC<SearchProps> = ({onChange, isLoading}) => {
                 onChange={e => setValue(e.target.value)}
                 clearable
                 bordered
-                color="primary"
+                color="secondary"
                 labelPlaceholder="Search"
                 contentRight={isLoading ? <Loading size="xs"/> : ''}
                 css={{

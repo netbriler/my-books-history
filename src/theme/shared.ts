@@ -1,4 +1,4 @@
-import {createTheme} from '@nextui-org/react';
+import {createTheme} from "@nextui-org/react";
 
 const fonts = {
     sans: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
@@ -7,7 +7,7 @@ const fonts = {
 
 export const lightTheme = createTheme({
     type: 'light',
-    className: 'nextui-docs-light',
+    className: 'light',
     theme: {
         fonts,
         colors: {
@@ -22,14 +22,15 @@ export const lightTheme = createTheme({
             backgroundBlur: 'rgba(255, 255, 255, 0.5)',
             blockLinkColor: '#FF1CF7',
             blockLinkBackground: '$accents1',
-            blockLinkHoverBackground: '#FFD1ED'
+            blockLinkHoverBackground: '#FFD1ED',
+            gradient: 'linear-gradient(112deg, #AAFFEC -63.59%, #ff4ecd -20.3%, #0070F3 70.46%)'
         }
     }
 });
 
 export const darkTheme = createTheme({
     type: 'dark',
-    className: 'nextui-docs-dark',
+    className: 'dark',
     theme: {
         fonts,
         colors: {
@@ -46,7 +47,8 @@ export const darkTheme = createTheme({
             blockLinkBackground: '$accents1',
             blockLinkHoverBackground: '#55057A',
             selection: '$purple700',
-            link: '$blue400'
+            link: '$blue400',
+            gradient: 'linear-gradient(112deg, #AAFFEC -63.59%, #ff4ecd -20.3%, #0070F3 70.46%)'
         }
     }
 });

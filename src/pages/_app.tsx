@@ -1,7 +1,7 @@
 import "../styles/global.css"
 import NextNProgress from "nextjs-progressbar";
 import {NextUIProvider} from "@nextui-org/react"
-import {ThemeProvider} from 'next-themes';
+import {ThemeProvider} from "next-themes";
 import {darkTheme, lightTheme} from "../theme/shared";
 import {FC} from "react";
 import {AppProps} from "next/app";

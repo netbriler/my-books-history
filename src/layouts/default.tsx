@@ -18,7 +18,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
 
-            <Container>
+            <Container lg={true}>
                 <Row>
                     <Col
                         css={{
@@ -29,7 +29,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
                         {children}
                     </Col>
                     <StyledImg
-                        className="docs__gradient-blue"
+                        className="layout__gradient-blue"
                         src="/gradient-left-dark.svg"
                         alt="gradient blue background"
                         css={{
@@ -47,7 +47,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
                         }}
                     />
                     <StyledImg
-                        className="docs__gradient-violet"
+                        className="layout__gradient-violet"
                         src="/gradient-right-dark.svg"
                         alt="gradient violet background"
                         css={{

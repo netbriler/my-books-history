@@ -12,7 +12,7 @@ export default class BooksService {
             params: {
                 q: query,
                 printType: 'books',
-                maxResults: 35,
+                maxResults: 16,
                 projection: 'lite'
             }
         });
