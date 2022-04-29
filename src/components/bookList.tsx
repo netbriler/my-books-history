@@ -1,9 +1,13 @@
-import React from "react";
+import React, {FC} from "react";
 import {Grid, Text} from "@nextui-org/react";
 import BookItem from "./bookItem";
+import {IBook} from "../types/book";
 
-//TODO Books interface
-const BookList = ({books}) => {
+interface BookListProps {
+    books: IBook[];
+}
+
+const BookList: FC<BookListProps> = ({books}) => {
 
     if (!books.length) {
         return (

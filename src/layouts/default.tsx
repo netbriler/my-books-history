@@ -3,12 +3,14 @@ import {darkTheme} from "../theme/shared";
 import {appears} from "../../utils/animations";
 import {StyledImg} from "../components/primitives";
 import Head from "next/head";
+import React, {FC} from "react";
 
 interface DefaultLayoutProps {
     title?: string;
+    children?: React.ReactNode
 }
 
-const DefaultLayout: React.FC<React.PropsWithChildren<DefaultLayoutProps>> = ({children, title}) => {
+const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
     return (
         <>
             <Head>

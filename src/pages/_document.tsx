@@ -1,5 +1,5 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { CssBaseline } from '@nextui-org/react';
+import Document, {Head, Html, Main, NextScript} from 'next/document';
+import {CssBaseline} from '@nextui-org/react';
 
 // @ts-ignore
 class MyDocument extends Document {
@@ -16,8 +16,8 @@ class MyDocument extends Document {
             <Html lang="en">
                 <Head>{CssBaseline.flush()}</Head>
                 <body>
-                <Main />
-                <NextScript />
+                <Main/>
+                <NextScript/>
                 </body>
             </Html>
         );

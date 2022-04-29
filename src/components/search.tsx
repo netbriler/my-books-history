@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {Input, Loading, Spacer} from "@nextui-org/react";
 import useDebounce from "../hooks/useDebounce";
 
@@ -8,7 +8,7 @@ interface SearchProps {
     onChange: (e) => Promise<void>
 }
 
-const Search: React.FC<SearchProps> = ({onChange, isLoading}) => {
+const Search: FC<SearchProps> = ({onChange, isLoading}) => {
     const [value, setValue] = useState('')
     const debouncedSearchTerm = useDebounce(value, 500);
 

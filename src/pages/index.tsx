@@ -4,9 +4,10 @@ import BooksService from "../API/BooksService";
 import {useFetching} from "../hooks/useFetching";
 import BookList from "../components/bookList";
 import DefaultLayout from "../layouts/default"
+import {IBook} from "../types/book";
 
 const Index = () => {
-    const [books, setBooks] = useState([])
+    const [books, setBooks] = useState<IBook[]>([])
 
     const [fetchBooks, isBooksLoading, booksError] = useFetching(async (value) => {
         if (value.trim() === '') {

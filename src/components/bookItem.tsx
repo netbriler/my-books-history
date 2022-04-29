@@ -1,30 +1,34 @@
-import React, {useEffect} from "react";
+import React, {FC} from "react";
 import {Card, Col, Grid, Text} from "@nextui-org/react";
+import {IBook} from "../types/book";
 
-//TODO Book interface
-const BookList = ({book}) => {
+interface BookItemProps {
+    book: IBook;
+}
+
+const BookItem: FC<BookItemProps> = ({book}) => {
     return (
-        <Grid className={'flasher'}>
+        <Grid className={'flasher'} onClick={() => console.log(book)}>
             <Card cover hoverable clickable bordered>
-                {book.volumeInfo.imageLinks ? '' :
+                {book.image ? '' :
                     <Card.Header css={{position: "absolute", zIndex: 1, top: 5}}>
                         <Col>
                             <Text size={10} weight="bold" transform="uppercase" color="#ffffffAA">
-                                {book.volumeInfo.title}
+                                {book.title}
                             </Text>
 
-                            {book.volumeInfo.authors ?
+                            {book.authors ?
                                 <Text h5 color="white">
-                                    {book.volumeInfo.authors[0]}
+                                    {book.authors[0]}
                                 </Text> : ''}
                         </Col>
                     </Card.Header>
                 }
                 <Card.Image
-                    src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "/book-placeholder.jpg"}
+                    src={book.image ? book.image : "/book-placeholder.jpg"}
                     height={200}
                     width={130}
-                    alt={book.volumeInfo.title}
+                    alt={book.title}
                 />
 
             </Card>
@@ -33,4 +37,4 @@ const BookList = ({book}) => {
 };
 
 
-export default BookList;
+export default BookItem;

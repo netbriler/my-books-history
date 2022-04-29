@@ -1,4 +1,4 @@
-import { keyframes } from '@nextui-org/react';
+import {keyframes} from '@nextui-org/react';
 
 export const appears = keyframes({
     from: {
