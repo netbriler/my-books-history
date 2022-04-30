@@ -25,10 +25,13 @@ const Search: FC<SearchProps> = ({onChange, isLoading}) => {
                 clearable
                 bordered
                 color="secondary"
-                labelPlaceholder="Search"
+                placeholder="Search..."
                 contentRight={isLoading ? <Loading size="xs"/> : ''}
                 css={{
-                    width: '100%'
+                    width: '100%',
+                    '@xsMax': {
+                        width: '56vw'
+                    },
                 }}
             />
         </>

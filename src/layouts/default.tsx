@@ -4,20 +4,28 @@ import {appears} from "../../utils/animations";
 import {StyledImg} from "../components/primitives";
 import Head from "next/head";
 import React, {FC} from "react";
+import Navbar from "./navbar";
 
 interface DefaultLayoutProps {
     title?: string;
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    isSearchLoading: boolean;
+    onSearchChange: (e) => Promise<void>
 }
 
-const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
+const DefaultLayout: FC<DefaultLayoutProps> = ({
+                                                   children,
+                                                   isSearchLoading,
+                                                   onSearchChange,
+                                                   title
+                                               }) => {
     return (
         <>
             <Head>
                 <title>{title || 'My Books History'}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
-
+            <Navbar isSearchLoading={isSearchLoading} onSearchChange={onSearchChange}/>
             <Container lg={true}>
                 <Row>
                     <Col

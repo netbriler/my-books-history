@@ -18,8 +18,8 @@ const Index = () => {
     })
 
     return (
-        <DefaultLayout>
-            <Search onChange={fetchBooks} isLoading={isBooksLoading}/>
+        <DefaultLayout onSearchChange={fetchBooks} isSearchLoading={isBooksLoading}>
+            {/*<Search onChange={fetchBooks} isLoading={isBooksLoading}/>*/}
             <BookList books={books}/>
         </DefaultLayout>
     );
