@@ -1,0 +1,18 @@
+.logo_small {
+    display: none;
+}
+
+.logo_large {
+    display: block;
+}
+
+@media screen and (max-width: 960px) {
+    .logo_large {
+        display: none;
+    }
+
+    .logo_small {
+        display: block;
+    }
+
+}

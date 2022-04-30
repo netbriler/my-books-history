@@ -1,12 +1,10 @@
-import React from "react";
 import {Checkbox, Grid} from "@nextui-org/react";
+import React from "react";
+import styles from "./BookItem.module.css";
 
 const BookShelfTooltip = () => {
     return (
-        <Grid.Container
-            css={{borderRadius: '14px', padding: '0.75rem', maxWidth: '330px', fontSize: '10px'}}
-        >
-
+        <Grid.Container className={styles.tooltip_container}>
             <Checkbox.Group
                 color="gradient"
                 label="Add to"

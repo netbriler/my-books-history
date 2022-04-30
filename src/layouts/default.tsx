@@ -1,10 +1,8 @@
-import {Col, Container, Row} from "@nextui-org/react"
-import {darkTheme} from "../theme/shared";
-import {appears} from "../../utils/animations";
-import {StyledImg} from "../components/primitives";
+import {Col, Container, Row, useTheme} from "@nextui-org/react"
 import Head from "next/head";
 import React, {FC} from "react";
-import Navbar from "./navbar";
+import Navbar from "../components/navbar";
+import styles from "./Default.module.css";
 
 interface DefaultLayoutProps {
     title?: string;
@@ -15,68 +13,34 @@ interface DefaultLayoutProps {
 
 const DefaultLayout: FC<DefaultLayoutProps> = ({
                                                    children,
-                                                   isSearchLoading,
-                                                   onSearchChange,
-                                                   title
+                                                   isSearchLoading, onSearchChange, title
                                                }) => {
+    const {isDark} = useTheme();
+
     return (
         <>
             <Head>
                 <title>{title || 'My Books History'}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
-            <Navbar isSearchLoading={isSearchLoading} onSearchChange={onSearchChange}/>
+            <Navbar isSearchLoading={isSearchLoading} onSearchChange={onSearchChange} isDark={isDark}/>
             <Container lg={true}>
                 <Row>
-                    <Col
-                        css={{
-                            zIndex: '$10',
-                            maxWidth: '100%',
-                        }}
-                    >
+                    <Col className={styles.layout_content}>
                         {children}
                     </Col>
-                    <StyledImg
-                        className="layout__gradient-blue"
-                        src="/gradient-left-dark.svg"
-                        alt="gradient blue background"
-                        css={{
-                            display: 'none',
-                            opacity: 0,
-                            position: 'fixed',
-                            zIndex: '$1',
-                            bottom: '-50%',
-                            left: '-10%',
-                            right: '-50%',
-                            animation: `${appears} 200ms 100ms ease forwards`,
-                            [`.${darkTheme} &`]: {
-                                display: 'block'
-                            }
-                        }}
-                    />
-                    <StyledImg
-                        className="layout__gradient-violet"
-                        src="/gradient-right-dark.svg"
-                        alt="gradient violet background"
-                        css={{
-                            display: 'none',
-                            top: 0,
-                            opacity: 0,
-                            position: 'fixed',
-                            animation: `${appears} 200ms 100ms ease forwards`,
-                            '@lg': {
-                                top: '-50%',
-                                right: '-50%'
-                            },
-                            '@mdMax': {
-                                top: '-35%',
-                                right: '-45%'
-                            },
-                            [`.${darkTheme} &`]: {
-                                display: 'block'
-                            }
-                        }}
-                    />
+                    {isDark && <>
+                        <img
+                            className={styles.layout__gradient_blue}
+                            src="/gradient-left-dark.svg"
+                            alt="gradient blue background"
+                        />
+                        <img
+                            className={styles.layout_gradient_violet}
+                            src="/gradient-right-dark.svg"
+                            alt="gradient violet background"
+                        />
+                    </>}
                 </Row>
             </Container>
         </>

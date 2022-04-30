@@ -1,0 +1,11 @@
+.card_header {
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip_container {
+    border-radius: 14px;
+    padding: 0.75rem;
+    max-width: 330px;
+    font-size: 10px;
+}

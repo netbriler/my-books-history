@@ -1,61 +1,45 @@
-import React from 'react';
-import cn from 'classnames';
-import { Moon, Sun } from '../icons';
-import { CSS, styled, useTheme } from '@nextui-org/react';
-import { useTheme as useNextTheme } from 'next-themes';
-import Blockholder from '../blockholder';
-import useIsMounted from '../../hooks/useIsMounted';
+import {useTheme} from "@nextui-org/react";
+import cn from "classnames";
+import {useTheme as useNextTheme} from "next-themes";
+import React from "react";
+import useIsMounted from "../../hooks/useIsMounted";
+import Blockholder from "../blockholder";
+import {Moon, Sun} from "../icons";
+
+import styles from "./ThemeToggle.module.css"
 
 interface Props {
-  className?: string;
-  css?: CSS;
+    className?: string;
 }
 
-const StyledButton = styled('button', {
-  dflex: 'center',
-  size: 'auto',
-  cursor: 'pointer',
-  background: 'transparent',
-  border: 'none',
-  padding: 0,
-  '& .theme-selector-icon': {
-    color: '$colors$headerIconColor'
-  },
-  '@xsMax': {
-    px: '$2'
-  }
-});
+export const ThemeToggle: React.FC<Props> = ({className}) => {
+    const isMounted = useIsMounted();
+    const {setTheme} = useNextTheme();
+    const {isDark} = useTheme();
 
-export const ThemeToggle: React.FC<Props> = ({ className, css }) => {
-  const isMounted = useIsMounted();
-  const { setTheme } = useNextTheme();
-  const { isDark } = useTheme();
+    if (!isMounted) {
+        return (
+            <Blockholder alt="toggle theme placeholder" width="32px" height="20px"/>
+        );
+    }
 
-  if (!isMounted) {
+    const handleToggleTheme = () => {
+        setTheme(isDark ? 'light' : 'dark');
+    };
+
     return (
-      // to avoid layout shift on initial render
-      <Blockholder alt="toggle theme placeholder" width="32px" height="20px" />
+        <button
+            aria-label="toggle a light and dark color scheme"
+            className={cn(styles.toggle_button, className)}
+            onClick={handleToggleTheme}
+        >
+            {isDark ? (
+                <Sun filled className={styles.toggle_button_icon} size={20}/>
+            ) : (
+                <Moon filled className={styles.toggle_button_icon} size={20}/>
+            )}
+        </button>
     );
-  }
-
-  const handleToggleTheme = () => {
-    setTheme(isDark ? 'light' : 'dark');
-  };
-
-  return (
-    <StyledButton
-      aria-label="toggle a light and dark color scheme"
-      className={cn('theme-selector-container', className)}
-      onClick={handleToggleTheme}
-      css={css}
-    >
-      {isDark ? (
-        <Sun filled className="theme-selector-icon" size={20} />
-      ) : (
-        <Moon filled className="theme-selector-icon" size={20} />
-      )}
-    </StyledButton>
-  );
 };
 
 export default ThemeToggle;

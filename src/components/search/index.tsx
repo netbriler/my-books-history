@@ -1,6 +1,6 @@
+import {Input, Loading} from "@nextui-org/react";
 import React, {FC, useEffect, useState} from "react";
-import {Input, Loading, Spacer} from "@nextui-org/react";
-import useDebounce from "../hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
 
 
 interface SearchProps {
@@ -18,7 +18,6 @@ const Search: FC<SearchProps> = ({onChange, isLoading}) => {
 
     return (
         <>
-            <Spacer y={2}/>
             <Input
                 value={value}
                 onChange={e => setValue(e.target.value)}
@@ -29,7 +28,7 @@ const Search: FC<SearchProps> = ({onChange, isLoading}) => {
                 contentRight={isLoading ? <Loading size="xs"/> : ''}
                 css={{
                     width: '100%',
-                    '@xsMax': {
+                    '@smMax': {
                         width: '56vw'
                     },
                 }}

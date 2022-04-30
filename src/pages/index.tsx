@@ -1,8 +1,7 @@
-import Search from "../components/search";
 import {useState} from "react";
 import BooksService from "../API/BooksService";
+import BookList from "../components/book-list";
 import {useFetching} from "../hooks/useFetching";
-import BookList from "../components/bookList";
 import DefaultLayout from "../layouts/default"
 import {IBook} from "../types/book";
 
@@ -19,7 +18,17 @@ const Index = () => {
 
     return (
         <DefaultLayout onSearchChange={fetchBooks} isSearchLoading={isBooksLoading}>
-            {/*<Search onChange={fetchBooks} isLoading={isBooksLoading}/>*/}
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
+            <BookList books={books}/>
             <BookList books={books}/>
         </DefaultLayout>
     );

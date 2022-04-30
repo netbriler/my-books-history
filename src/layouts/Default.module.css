@@ -1,0 +1,48 @@
+.layout_content{
+    z-index: var(--nextui-zIndices-10);
+    max-width: 100%;
+}
+
+@keyframes flasher {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.layout_gradient_violet {
+    top: 0;
+    opacity: 0;
+    position: fixed;
+    animation: flasher 200ms 100ms ease forwards;
+}
+
+.layout__gradient_blue{
+    opacity: 0;
+    position: fixed;
+    animation: flasher 200ms 100ms ease forwards;
+    bottom: -50%;
+    left: -10%;
+    right: -50%;
+    z-index: var(--nextui-zIndices-1);
+}
+
+.dark .layout_gradient_violet {
+    display: block;
+}
+
+@media screen and (max-width: 1280px) {
+    .layout_gradient_violet {
+        top: -35%;
+        right: -45%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .layout_gradient_violet {
+        top: -50%;
+        right: -50%;
+    }
+}

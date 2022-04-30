@@ -1,6 +1,7 @@
-import React, {FC} from "react";
 import {Card, Col, Grid, Text, Tooltip} from "@nextui-org/react";
-import {IBook} from "../types/book";
+import React, {FC} from "react";
+import {IBook} from "../../types/book";
+import styles from "./BookItem.module.css";
 import BookShelfTooltip from "./bookShelfTooltip";
 
 interface BookItemProps {
@@ -13,7 +14,7 @@ const BookItem: FC<BookItemProps> = ({book}) => {
             <Tooltip trigger="click" content={<BookShelfTooltip/>} placement="bottomStart">
                 <Card cover hoverable clickable bordered>
                     {book.image ? '' :
-                        <Card.Header css={{position: "absolute", zIndex: 1, top: 5}}>
+                        <Card.Header className={styles.card_header}>
                             <Col>
                                 <Text size={10} weight="bold" transform="uppercase" color="#ffffffAA">
                                     {book.title}
@@ -27,14 +28,11 @@ const BookItem: FC<BookItemProps> = ({book}) => {
                         </Card.Header>
                     }
                     <Card.Image
-                        src={book.image ? book.image : "/book-placeholder.jpg"}
+                        src={book.image ? book.image : '/book-placeholder.jpg'}
                         height={200}
                         width={130}
                         alt={book.title}
                     />
-
-                    Hey
-
                 </Card>
             </Tooltip>
         </Grid>

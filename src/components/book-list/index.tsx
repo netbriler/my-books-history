@@ -1,7 +1,7 @@
-import React, {FC} from "react";
 import {Grid, Text} from "@nextui-org/react";
-import BookItem from "./bookItem";
-import {IBook} from "../types/book";
+import React, {FC} from "react";
+import {IBook} from "../../types/book";
+import BookItem from "../book-item/bookItem";
 
 interface BookListProps {
     books: IBook[];
