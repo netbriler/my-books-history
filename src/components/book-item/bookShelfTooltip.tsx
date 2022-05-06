@@ -8,6 +8,7 @@ const BookShelfTooltip = () => {
             <Checkbox.Group
                 color="gradient"
                 label="Add to"
+                aria-label="Add to"
                 size="sm"
             >
                 <Checkbox value="1">Want to read</Checkbox>

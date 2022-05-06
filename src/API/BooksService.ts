@@ -7,8 +7,10 @@ interface BooksSearchResponse {
 }
 
 export default class BooksService {
+    static _apiBase = process.env.BASE_URL
+
     static async search(query: string) {
-        return await axios.get<BooksSearchResponse>('/api/books/search', {
+        return await axios.get<BooksSearchResponse>(this._apiBase + '/api/v1/books/search', {
             params: {
                 q: query,
                 printType: 'books',

@@ -1,6 +1,6 @@
 import axios from "axios";
 import {NextApiRequest, NextApiResponse} from "next";
-import {IBook} from "../../../types/book";
+import {IBook} from "../../../../types/book";
 
 interface SearchNextApiRequest extends NextApiRequest {
     query: {
@@ -26,9 +26,7 @@ export default async function echo(req: SearchNextApiRequest, res: NextApiRespon
                 id: b.id,
                 title: b.volumeInfo.title,
                 authors: b.volumeInfo.authors,
-                publishedDate: b.volumeInfo.publishedDate,
                 image: b.volumeInfo.readingModes.image ? b.volumeInfo.imageLinks.thumbnail : null,
-                description: b.volumeInfo.readingModes.text ? b.volumeInfo.description : null,
             }
         )
 
