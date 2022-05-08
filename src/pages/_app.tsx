@@ -2,9 +2,20 @@ import {NextUIProvider} from "@nextui-org/react"
 import {ThemeProvider} from "next-themes";
 import {AppProps} from "next/app";
 import NextNProgress from "nextjs-progressbar";
-import {FC} from "react";
+import React, {createContext, FC} from "react";
+import Store from "../store/store";
 import "../styles/global.css"
 import {darkTheme, lightTheme} from "../theme/shared";
+
+interface State {
+    store: Store,
+}
+
+export const store = new Store();
+
+export const Context = createContext<State>({
+    store,
+})
 
 const MyApp: FC<AppProps> = ({Component, pageProps}) => (// @ts-ignore
     <ThemeProvider
@@ -23,7 +34,11 @@ const MyApp: FC<AppProps> = ({Component, pageProps}) => (// @ts-ignore
                 showOnShallow={true}
                 stopDelayMs={200}
             />
-            <Component {...pageProps} />
+            <Context.Provider value={{
+                store
+            }}>
+                <Component {...pageProps} />
+            </Context.Provider>
         </NextUIProvider>
     </ThemeProvider>
 );
