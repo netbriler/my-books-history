@@ -1,7 +1,10 @@
 import {Col, Container, Row, useTheme} from "@nextui-org/react"
 import Head from "next/head";
-import React, {FC} from "react";
+import React, {FC, useContext, useEffect, useState} from "react";
+import AuthModal from "../components/auth-modal";
 import Navbar from "../components/navbar";
+import {Context} from "../pages/_app";
+import {IBook} from "../types/book";
 import styles from "./Default.module.css";
 
 interface DefaultLayoutProps {
@@ -16,6 +19,16 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({
                                                    isSearchLoading, onSearchChange, title
                                                }) => {
     const {isDark} = useTheme();
+    const {store} = useContext(Context);
+    const [showAuthModal, setAuthModal] = useState(false)
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            await store.checkAuth();
+            setAuthModal(!store.isAuth)
+        }
+        checkAuth()
+    }, [])
 
     return (
         <>
@@ -41,6 +54,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({
                             alt="gradient violet background"
                         />
                     </>}
+                    <AuthModal visible={showAuthModal}/>
                 </Row>
             </Container>
         </>

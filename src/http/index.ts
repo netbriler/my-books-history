@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AuthService from "../API/AuthService";
 
 export const API_URL = process.env.BASE_URL
 
@@ -14,16 +15,16 @@ $api.interceptors.request.use((config) => {
 
 $api.interceptors.response.use((config) => {
     return config;
-},async (error) => {
+}, async (error) => {
     const originalRequest = error.config;
     if (error.response.status == 401 && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true;
         try {
-            const response = await $api.post(`${API_URL}/oauth/refresh`)
+            const response = await AuthService.refresh()
             localStorage.setItem('token', response.data.accessToken);
             return $api.request(originalRequest);
         } catch (e) {
-            window.open(`${API_URL}/oauth/google?redirect_uri=http://localhost:3000/oauth2-redirect`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+            console.log(e)
         }
     }
     throw error;

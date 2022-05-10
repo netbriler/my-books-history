@@ -12,4 +12,17 @@ export default class AuthService {
         });
     }
 
+    static async getMe() {
+        return await $api.get(this._apiBase + '/api/v1/user/me/');
+    }
+
+    static async refresh() {
+        return await $api.get(this._apiBase + '/oauth/refresh')
+
+    }
+
+    static async logout() {
+        return await $api.get(this._apiBase + '/oauth/logout')
+    }
+
 }

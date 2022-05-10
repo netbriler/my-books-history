@@ -13,23 +13,23 @@ const Index = () => {
             return setBooks([])
         }
         const response = await BooksService.search(value);
-        setBooks(response.data.totalItems ? response.data.items : [])
+        setBooks(response.totalItems ? response.items : [])
     })
 
     return (
         <DefaultLayout onSearchChange={fetchBooks} isSearchLoading={isBooksLoading}>
             <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
-            <BookList books={books}/>
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
+            {/*<BookList books={books}/>*/}
         </DefaultLayout>
     );
 };

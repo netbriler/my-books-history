@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    const url = new URL(document.location);
+    if(!url.searchParams.get('scope').includes('auth/books'))
+    {
+        window.location.href = '/';
+    } else {
+        fetch(localStorage.getItem('apiUrl') + '/oauth/google/redirect?code=' + url.searchParams.get('code') + '&redirect_uri=' + url.origin + url.pathname, {
+            'method': 'GET',
+            'credentials': 'include'
+        }).then(r => r.json()).then(r => {
+            localStorage.setItem('token', r.accessToken);
+            window.location.href = '/';
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,7 +1,6 @@
-import axios from 'axios';
+import AuthService from "../API/AuthService";
+import {API_URL} from "../http";
 import {IUser} from "../types/user";
-
-const API_URL = process.env.BASE_URL
 
 export default class Store {
     user = {} as IUser;
@@ -15,24 +14,33 @@ export default class Store {
         this.user = user;
     }
 
+    login() {
+        // @ts-ignore
+        const currentUrl = new URL(document.location).origin;
+        localStorage.setItem('apiUrl', API_URL);
+        window.location.href = `${API_URL}/oauth/google?redirect_uri=${currentUrl}/oauth2-redirect.html`;
+    }
+
     async logout() {
         try {
             localStorage.removeItem('token');
             this.setAuth(false);
             this.setUser({} as IUser);
+            await AuthService.logout()
         } catch (e) {
-            console.log(e.response?.data?.message);
+            console.log(e.response?.data);
         }
     }
 
     async checkAuth() {
         try {
-            const response = await axios.get(`${API_URL}/oauth/refresh`, {withCredentials: true})
-            localStorage.setItem('token', response.data.access_token);
+            const response = await AuthService.getMe();
             this.setAuth(true);
-            this.setUser(response.data.user);
+            this.setUser(response.data);
+            return false;
         } catch (e) {
-            console.log(e.response?.data?.message);
+            console.log(e.response?.data);
+            return true;
         }
     }
 }
