@@ -1,0 +1,13 @@
+.navbar {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.navbar_link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(201, 201, 201);
+    font-size: 1.9vh;
+}

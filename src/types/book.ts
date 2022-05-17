@@ -4,3 +4,9 @@ export interface IBook {
     authors: string[],
     image: string | null
 }
+
+export interface IBookshelf {
+    id: number,
+    title: string,
+    volumeCount: number
+}

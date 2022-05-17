@@ -26,7 +26,7 @@ const Search: FC<SearchProps> = ({onChange, isLoading}) => {
                 color="secondary"
                 placeholder="Search..."
                 aria-label="Search..."
-                contentRight={isLoading ? <Loading size="xs"/> : ''}
+                contentRight={isLoading ? <Loading color="secondary" size="xs"/> : ''}
                 css={{
                     width: '100%',
                     '@smMax': {
