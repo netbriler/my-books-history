@@ -1,17 +1,18 @@
 import {Card, Col, Grid, Text, Tooltip} from "@nextui-org/react";
 import React, {FC} from "react";
-import {IBook} from "../../types/book";
+import {IBook, IBookshelf} from "../../types/book";
 import styles from "./BookItem.module.css";
 import BookShelfTooltip from "./bookShelfTooltip";
 
 interface BookItemProps {
     book: IBook;
+    bookshelves: IBookshelf[]
 }
 
-const BookItem: FC<BookItemProps> = ({book}) => {
+const BookItem: FC<BookItemProps> = ({book, bookshelves}) => {
     return (
         <Grid className={'flasher'} justify={'center'}>
-            <Tooltip trigger="click" content={<BookShelfTooltip/>} placement="bottomStart">
+            <Tooltip trigger="click" content={<BookShelfTooltip bookshelves={bookshelves} book={book}/>} placement="bottomStart">
                 <Card cover hoverable clickable bordered>
                     {book.image ? '' :
                         <Card.Header className={styles.card_header}>

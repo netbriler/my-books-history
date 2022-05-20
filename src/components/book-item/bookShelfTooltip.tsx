@@ -1,8 +1,18 @@
 import {Checkbox, Grid} from "@nextui-org/react";
-import React from "react";
+import React, {FC} from "react";
+import {IBook, IBookshelf} from "../../types/book";
 import styles from "./BookItem.module.css";
 
-const BookShelfTooltip = () => {
+
+interface BookShelfTooltipProps {
+    book: IBook;
+    bookshelves: IBookshelf[]
+}
+
+const BookShelfTooltip: FC<BookShelfTooltipProps> = ({bookshelves, book}) => {
+
+    const defaultValue = (book.bookshelves !== undefined) ? book.bookshelves.map(i => i.toString()) : [];
+    console.log(defaultValue)
     return (
         <Grid.Container className={styles.tooltip_container}>
             <Checkbox.Group
@@ -10,10 +20,11 @@ const BookShelfTooltip = () => {
                 label="Add to"
                 aria-label="Add to"
                 size="sm"
+                defaultValue={defaultValue}
             >
-                <Checkbox value="1">Want to read</Checkbox>
-                <Checkbox value="2">Read now</Checkbox>
-                <Checkbox value="3">Have read</Checkbox>
+                {bookshelves.map(bookshelf =>
+                    <Checkbox value={bookshelf.id.toString()} key={bookshelf.id}>{bookshelf.title}</Checkbox>
+                )}
             </Checkbox.Group>
         </Grid.Container>
     );

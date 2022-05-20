@@ -1,4 +1,4 @@
-import {Grid, Loading} from "@nextui-org/react";
+import {Grid} from "@nextui-org/react";
 import {useEffect, useState} from "react";
 import BookshelvesService from "../API/BookshelvesService";
 import BooksService from "../API/BooksService";
@@ -16,8 +16,8 @@ const Index = () => {
 
     const [fetchBooks, isBooksLoading, booksError] = useFetching(async (value, fromBookshelves = false) => {
         let response;
-        console.log(fromBookshelves);
         if (fromBookshelves) {
+            setEnableSearch(false);
             response = await BookshelvesService.getBookshelfBooks(value).then(r => r.data);
         } else {
             if (value.trim() === '') {
@@ -38,20 +38,23 @@ const Index = () => {
     }, [])
 
     useEffect(() => {
-        console.log('fetchBooks')
-        console.log(fetchBooks(selectedBookshelf.id, true))
+        fetchBooks(selectedBookshelf.id, true)
     }, [selectedBookshelf])
 
+    const onSearchChange = (value: string) => {
+        setEnableSearch(value.trim() !== '')
+        fetchBooks(value)
+    }
+
     return (
-        <DefaultLayout onSearchChange={fetchBooks} isSearchLoading={isBooksLoading}>
+        <DefaultLayout onSearchChange={onSearchChange} isSearchLoading={enableSearch && isBooksLoading}>
             <Grid.Container gap={2}>
                 <Grid xs={2}>
                     <Sidebar selectedTab={selectedBookshelf.id} tabs={bookshelves} setTab={setSelectedBookshelf}/>
                 </Grid>
                 <Grid xs={10} direction={'column'}>
-                    {isBooksLoading ? <Loading type="gradient" color={'secondary'}/> :
-                        <BookList books={books} title={enableSearch ? 'Search' : selectedBookshelf.title}/>
-                    }
+                    <BookList books={books} title={enableSearch ? 'Search' : selectedBookshelf.title}
+                              isLoading={isBooksLoading} bookshelves={bookshelves}/>
                 </Grid>
             </Grid.Container>
 

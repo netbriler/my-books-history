@@ -5,7 +5,7 @@ import useDebounce from "../../hooks/useDebounce";
 
 interface SearchProps {
     isLoading: boolean;
-    onChange: (e) => Promise<void>
+    onChange: (value: string) => void;
 }
 
 const Search: FC<SearchProps> = ({onChange, isLoading}) => {

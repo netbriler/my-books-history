@@ -11,7 +11,7 @@ interface DefaultLayoutProps {
     title?: string;
     children?: React.ReactNode;
     isSearchLoading: boolean;
-    onSearchChange: (e) => Promise<void>
+    onSearchChange: (value: string) => void
 }
 
 const DefaultLayout: FC<DefaultLayoutProps> = ({

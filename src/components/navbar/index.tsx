@@ -9,7 +9,7 @@ import styles from "./Navbar.module.css";
 
 export interface Props {
     isSearchLoading: boolean;
-    onSearchChange: (e) => Promise<void>;
+    onSearchChange: (value: string) => void;
     isDark: boolean
 }
 

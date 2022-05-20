@@ -1,4 +1,4 @@
-import {Link as NextLink} from "@nextui-org/react";
+import {Link as NextLink, Spacer} from "@nextui-org/react";
 import Link from "next/link";
 import React, {FC} from "react";
 import {IBookshelf} from "../../types/book";
@@ -13,6 +13,7 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({selectedTab, tabs, setTab}) => {
     return (
         <div className={styles.navbar}>
+            <Spacer y={1}/>
             {tabs.map(tab =>
                 <span className={styles.navbar_link} key={tab.id} onClick={() => setTab(tab)}>
                     <Link href="#">

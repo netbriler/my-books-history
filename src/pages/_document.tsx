@@ -14,7 +14,10 @@ class MyDocument extends Document {
     render() {
         return (
             <Html lang="en">
-                <Head>{CssBaseline.flush()}</Head>
+                <Head>
+                    <link rel="icon" href="/logo-small.svg" type="image/svg+xml"/>
+                    {CssBaseline.flush()}
+                </Head>
                 <body>
                 <Main/>
                 <NextScript/>
