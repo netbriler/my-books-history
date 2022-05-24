@@ -10,9 +10,8 @@ interface BookShelfTooltipProps {
 }
 
 const BookShelfTooltip: FC<BookShelfTooltipProps> = ({bookshelves, book}) => {
-
     const defaultValue = (book.bookshelves !== undefined) ? book.bookshelves.map(i => i.toString()) : [];
-    console.log(defaultValue)
+
     return (
         <Grid.Container className={styles.tooltip_container}>
             <Checkbox.Group

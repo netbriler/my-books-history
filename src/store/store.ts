@@ -15,21 +15,14 @@ export default class Store {
     }
 
     login() {
-        // @ts-ignore
-        const currentUrl = new URL(document.location).origin;
-        localStorage.setItem('apiUrl', API_URL);
-        window.location.href = `${API_URL}/oauth/google?redirect_uri=${currentUrl}/oauth2-redirect.html`;
+        window.location.href = `${API_URL}/oauth/google`;
     }
 
     async logout() {
-        try {
-            localStorage.removeItem('token');
-            this.setAuth(false);
-            this.setUser({} as IUser);
-            await AuthService.logout()
-        } catch (e) {
-            console.log(e.response?.data);
-        }
+        localStorage.removeItem('token');
+        this.setAuth(false);
+        this.setUser({} as IUser);
+        await AuthService.logout()
     }
 
     async checkAuth() {
@@ -37,10 +30,8 @@ export default class Store {
             const response = await AuthService.getMe();
             this.setAuth(true);
             this.setUser(response.data);
-            return false;
         } catch (e) {
-            console.log(e.response?.data);
-            return true;
+            await this.logout();
         }
     }
 }

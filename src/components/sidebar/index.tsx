@@ -2,7 +2,7 @@ import {Link as NextLink, Spacer} from "@nextui-org/react";
 import Link from "next/link";
 import React, {FC} from "react";
 import {IBookshelf} from "../../types/book";
-import styles from './Sidebar.module.css';
+import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
     selectedTab: number;

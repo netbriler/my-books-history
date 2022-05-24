@@ -18,10 +18,10 @@ export default class AuthService {
 
     static async refresh() {
         return await $api.get(this._apiBase + '/oauth/refresh')
-
     }
 
     static async logout() {
+        localStorage.removeItem('token');
         return await $api.get(this._apiBase + '/oauth/logout')
     }
 

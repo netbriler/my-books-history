@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import AuthService from "../API/AuthService";
 
 export const API_URL = process.env.BASE_URL
@@ -17,6 +17,9 @@ $api.interceptors.response.use((config) => {
     return config;
 }, async (error) => {
     const originalRequest = error.config;
+    if (error.response.status == 423) {
+        return await AuthService.logout()
+    }
     if (error.response.status == 401 && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true;
         try {
@@ -24,7 +27,7 @@ $api.interceptors.response.use((config) => {
             localStorage.setItem('token', response.data.accessToken);
             return $api.request(originalRequest);
         } catch (e) {
-            console.log(e)
+            await AuthService.logout()
         }
     }
     throw error;

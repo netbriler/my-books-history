@@ -31,7 +31,9 @@ const Index = () => {
     useEffect(() => {
         const getBookshelves = async () => {
             const bookshelves = await BookshelvesService.getBookshelves().then(r => r.data);
-            setBookshelves(bookshelves);
+            if (bookshelves) {
+                setBookshelves(bookshelves);
+            }
         }
 
         getBookshelves();
