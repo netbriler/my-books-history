@@ -10,19 +10,12 @@
 </head>
 <body style="background: black;">
 <script>
-    const url = new URL(document.location);
-    if(!url.searchParams.get('scope').includes('auth/books'))
+    if(window.location.hash.trim().slice(1))
     {
-        window.location.href = '/';
-    } else {
-        fetch(localStorage.getItem('apiUrl') + '/oauth/google/redirect?code=' + url.searchParams.get('code') + '&redirect_uri=' + url.origin + url.pathname, {
-            'method': 'GET',
-            'credentials': 'include'
-        }).then(r => r.json()).then(r => {
-            localStorage.setItem('token', r.accessToken);
-            window.location.href = '/';
-        });
+        const data = JSON.parse(decodeURI(window.location.hash).slice(1));
+        localStorage.setItem('token', data.accessToken);
     }
+    window.location.href = '/';
 </script>
 </body>
 </html>
