@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {bookshelfAPI} from "../../services/BookshelfService";
+import {bookAPI} from "../../services/BookService";
 import {IBookshelf} from "../../types/book";
 import BookList from "../book-list";
 
@@ -9,11 +9,11 @@ interface BookshelfProps {
 }
 
 const Bookshelf: FC<BookshelfProps> = ({bookshelf}) => {
-    const {data: booksData, error, isFetching, isUninitialized } = bookshelfAPI.useGetBookshelfBooksQuery(bookshelf.id);
+    const {data: booksData, isLoading, isUninitialized} = bookAPI.useGetBookshelfBooksQuery(bookshelf.id);
     const books = booksData !== undefined ? booksData.items : [];
 
     return (
-        <BookList books={books} title={bookshelf.title} isLoading={isFetching || isUninitialized }/>
+        <BookList books={books} title={bookshelf.title} isLoading={isLoading || isUninitialized}/>
     );
 };
 

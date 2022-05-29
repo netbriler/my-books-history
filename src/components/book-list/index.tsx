@@ -36,8 +36,8 @@ const BookList: FC<BookListProps> = ({books, title = '', isLoading = false}) => 
             </Text>}
             {isLoading ? <Loading type="gradient" color={'secondary'} size={'xl'}/> :
                 <Grid.Container gap={2} justify="flex-start">
-                    {books.map((book, index) =>
-                        <BookItem book={book} key={index} bookshelves={bookshelves}/>
+                    {books.map((book) =>
+                        <BookItem book={book} key={book.google_id} bookshelves={bookshelves}/>
                     )}
                 </Grid.Container>
             }

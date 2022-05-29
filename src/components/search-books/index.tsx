@@ -10,7 +10,7 @@ interface SearchBooksProps {
 
 
 const SearchBooks: FC<SearchBooksProps> = ({value}) => {
-    const {data: booksData, error, isFetching, isUninitialized } = bookAPI.useGetBookshelfBooksQuery(value);
+    const {data: booksData, isFetching, isLoading, isUninitialized } = bookAPI.useSearchBooksQuery(value);
     const books = booksData !== undefined ? booksData.items : [];
 
     const {setSearch} = useContext(SearchContext);
@@ -20,7 +20,7 @@ const SearchBooks: FC<SearchBooksProps> = ({value}) => {
     }, [isFetching])
 
     return (
-        <BookList books={books} title={'Search'} isLoading={isFetching || isUninitialized }/>
+        <BookList books={books} title={'Search'} isLoading={isLoading || isUninitialized }/>
     );
 };
 

@@ -19,7 +19,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs,
     FetchBaseQueryError> = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions)
 
-    if (result.error && result.error.status === 401) {
+    if (result.error && (result.error.status === 401 || result.error.status === 423)) {
         await AuthService.refresh().then(async (refreshResult) => {
             api.dispatch(setUser({
                     token: refreshResult.data.accessToken, user: refreshResult.data.user

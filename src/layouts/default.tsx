@@ -15,20 +15,20 @@ interface DefaultLayoutProps {
 
 const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
     const {isDark} = useTheme();
-    const {data: user, error, isFetching} = userAPI.useGetMeQuery(null)
+    const {data: user, isLoading} = userAPI.useGetMeQuery(null)
 
     const dispatch = useAppDispatch();
     const {user: authUser} = useAppSelector(selectAuth);
 
     useEffect(() => {
-        if (isFetching) {
+        if (isLoading) {
             return
         }
 
         if (user !== undefined) {
             dispatch(setUser({user: user}))
         }
-    }, [isFetching])
+    }, [isLoading])
 
     return (
         <>
@@ -54,7 +54,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
                             alt="gradient violet background"
                         />
                     </>}
-                    <AuthModal visible={!isFetching && !authUser}/>
+                    <AuthModal visible={!isLoading && !authUser}/>
                 </Row>
             </Container>
         </>

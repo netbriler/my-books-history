@@ -1,5 +1,5 @@
 export interface IBook {
-    id: string,
+    google_id: string,
     title: string,
     authors: string[],
     image: string | null,

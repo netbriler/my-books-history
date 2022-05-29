@@ -14,7 +14,7 @@ const Search: FC<SearchProps> = () => {
     const debouncedSearchTerm = useDebounce(value, 500);
 
     useEffect(() => {
-        setSearch({isLoading: value.trim() !== '', value: value});
+        setSearch({isLoading: SearchValue.isLoading, value: value});
     }, [debouncedSearchTerm])
 
     return (
