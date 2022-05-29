@@ -10,8 +10,7 @@
 </head>
 <body style="background: black;">
 <script>
-    if(window.location.hash.trim().slice(1))
-    {
+    if (window.location.hash.trim().slice(1)) {
         const data = JSON.parse(decodeURI(window.location.hash).slice(1));
         localStorage.setItem('token', data.accessToken);
     }

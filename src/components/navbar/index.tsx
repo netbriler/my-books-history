@@ -8,12 +8,10 @@ import ThemeToggle from "../theme-toggle"
 import styles from "./Navbar.module.css";
 
 export interface Props {
-    isSearchLoading: boolean;
-    onSearchChange: (value: string) => void;
     isDark: boolean
 }
 
-const Navbar: React.FC<Props> = ({isSearchLoading, onSearchChange, isDark}) => {
+const Navbar: React.FC<Props> = ({isDark}) => {
     const [scrollPosition, setScrollPosition] = useState(
         (typeof window !== 'undefined' && window.scrollY) || 0
     );
@@ -46,7 +44,7 @@ const Navbar: React.FC<Props> = ({isSearchLoading, onSearchChange, isDark}) => {
                 </Col>
                 <Col>
                     <Row>
-                        <Search isLoading={isSearchLoading} onChange={onSearchChange}/>
+                        <Search/>
                     </Row>
                 </Col>
                 <Col className={styles.navbar_icons_container}>

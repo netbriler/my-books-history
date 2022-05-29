@@ -1,24 +1,29 @@
 import {Grid, Loading, Text} from "@nextui-org/react";
 import React, {FC} from "react";
-import {IBook, IBookshelf} from "../../types/book";
+import {selectAuth} from "../../store/reducers/authSlice";
+import {useAppSelector} from "../../store/store";
+import {IBook} from "../../types/book";
 import BookItem from "../book-item/bookItem";
 
 interface BookListProps {
     books: IBook[];
     title?: string;
     isLoading?: boolean;
-    bookshelves: IBookshelf[]
 }
 
-const BookList: FC<BookListProps> = ({books, title = '', isLoading = false, bookshelves}) => {
+const BookList: FC<BookListProps> = ({books, title = '', isLoading = false}) => {
 
-    if (!books.length) {
+    const {user} = useAppSelector(selectAuth);
+
+    if (!books.length && !isLoading) {
         return (
             <Text h1 size={60} css={{textGradient: '45deg, $blue500 -20%, $pink500 50%'}} weight="bold">
                 Books not found!
             </Text>
         )
     }
+
+    const bookshelves = user !== null ? user.bookshelves : [];
 
     return (
         <>

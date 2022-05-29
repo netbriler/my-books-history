@@ -1,17 +1,16 @@
 import {Button, Card, Divider, Modal, Text} from "@nextui-org/react";
-import React, {useContext} from "react";
-import {Context} from "../../pages/_app";
+import React from "react";
+import AuthService from "../../API/AuthService";
 
 interface AuthModalProps {
     visible: boolean;
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({visible}) => {
-    const {store} = useContext(Context);
-
     const submitHandler = () => {
-        store.login()
+        AuthService.login()
     };
+
     return (
         <div>
             <Modal

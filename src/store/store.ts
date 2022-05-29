@@ -1,37 +1,28 @@
-import AuthService from "../API/AuthService";
-import {API_URL} from "../http";
-import {IUser} from "../types/user";
+import {configureStore} from "@reduxjs/toolkit";
+import {setupListeners} from "@reduxjs/toolkit/query";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {bookAPI} from "../services/BookService";
+import {bookshelfAPI} from "../services/BookshelfService";
+import {userAPI} from "../services/UserService";
+import authSlice from "./reducers/authSlice";
 
-export default class Store {
-    user = {} as IUser;
-    isAuth = false;
 
-    setAuth(bool: boolean) {
-        this.isAuth = bool;
-    }
+export const store = configureStore({
+    reducer: {
+        auth: authSlice,
+        [userAPI.reducerPath]: userAPI.reducer,
+        [bookshelfAPI.reducerPath]: bookshelfAPI.reducer,
+        [bookAPI.reducerPath]: bookAPI.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware()
+            .concat(userAPI.middleware).concat(bookshelfAPI.middleware).concat(bookAPI.middleware)
+});
 
-    setUser(user: IUser) {
-        this.user = user;
-    }
 
-    login() {
-        window.location.href = `${API_URL}/oauth/google`;
-    }
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+setupListeners(store.dispatch);
 
-    async logout() {
-        localStorage.removeItem('token');
-        this.setAuth(false);
-        this.setUser({} as IUser);
-        await AuthService.logout()
-    }
-
-    async checkAuth() {
-        try {
-            const response = await AuthService.getMe();
-            this.setAuth(true);
-            this.setUser(response.data);
-        } catch (e) {
-            await this.logout();
-        }
-    }
-}
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

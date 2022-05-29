@@ -12,7 +12,8 @@ interface BookItemProps {
 const BookItem: FC<BookItemProps> = ({book, bookshelves}) => {
     return (
         <Grid className={'flasher'} justify={'center'}>
-            <Tooltip trigger="click" content={<BookShelfTooltip bookshelves={bookshelves} book={book}/>} placement="bottomStart">
+            <Tooltip trigger="click" content={<BookShelfTooltip bookshelves={bookshelves} book={book}/>}
+                     placement="bottomStart">
                 <Card cover hoverable clickable bordered>
                     {book.image ? '' :
                         <Card.Header className={styles.card_header}>

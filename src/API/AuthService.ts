@@ -1,28 +1,19 @@
-import $api from "../http";
+import axios from "axios";
 
 export default class AuthService {
     static _apiBase = process.env.BASE_URL
 
-    static async sendCode(code: string, redirect_uri: string) {
-        return await $api.get(this._apiBase + '/oauth/google/redirect', {
-            params: {
-                code: code,
-                redirect_uri: redirect_uri
-            }
-        });
-    }
-
-    static async getMe() {
-        return await $api.get(this._apiBase + '/api/v1/user/me/');
+    static login() {
+        window.location.href = this._apiBase + '/oauth/google';
     }
 
     static async refresh() {
-        return await $api.get(this._apiBase + '/oauth/refresh')
+        return await axios.get(this._apiBase + '/oauth/refresh', {withCredentials: true})
     }
 
-    static async logout() {
+    static logout() {
         localStorage.removeItem('token');
-        return await $api.get(this._apiBase + '/oauth/logout')
+        return axios.get(this._apiBase + '/oauth/logout')
     }
 
 }

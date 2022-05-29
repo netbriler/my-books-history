@@ -1,62 +1,51 @@
 import {Grid} from "@nextui-org/react";
-import {useEffect, useState} from "react";
-import BookshelvesService from "../API/BookshelvesService";
-import BooksService from "../API/BooksService";
-import BookList from "../components/book-list";
+import React, {useContext, useEffect, useState} from "react";
+import Bookshelf from "../components/bookshelf";
+import SearchBooks from "../components/search-books";
 import Sidebar from "../components/sidebar";
-import {useFetching} from "../hooks/useFetching";
 import DefaultLayout from "../layouts/default"
-import {IBook, IBookshelf} from "../types/book";
+import {selectAuth} from "../store/reducers/authSlice";
+import {useAppSelector} from "../store/store";
+import {IBookshelf} from "../types/book";
+import {SearchContext} from "./_app";
 
 const Index = () => {
+    const {user} = useAppSelector(selectAuth);
+    const bookshelves = user !== null ? user.bookshelves : [];
+
+    const [selectedBookshelf, setSelectedBookshelf] = useState<IBookshelf | null>(null)
     const [enableSearch, setEnableSearch] = useState<boolean>(false)
-    const [books, setBooks] = useState<IBook[]>([])
-    const [bookshelves, setBookshelves] = useState<IBookshelf[]>([])
-    const [selectedBookshelf, setSelectedBookshelf] = useState<IBookshelf>({id: -1, title: '', volumeCount: 0})
 
-    const [fetchBooks, isBooksLoading, booksError] = useFetching(async (value, fromBookshelves = false) => {
-        let response;
-        if (fromBookshelves) {
-            setEnableSearch(false);
-            response = await BookshelvesService.getBookshelfBooks(value).then(r => r.data);
-        } else {
-            if (value.trim() === '') {
-                return setBooks([])
-            }
-            response = await BooksService.search(value);
-        }
-        setBooks(response.totalItems ? response.items : [])
-    })
+    const {SearchValue, setSearch} = useContext(SearchContext);
 
     useEffect(() => {
-        const getBookshelves = async () => {
-            const bookshelves = await BookshelvesService.getBookshelves().then(r => r.data);
-            if (bookshelves) {
-                setBookshelves(bookshelves);
-            }
-        }
-
-        getBookshelves();
-    }, [])
+        setEnableSearch(SearchValue.value.trim() !== '')
+    }, [SearchValue.value])
 
     useEffect(() => {
-        fetchBooks(selectedBookshelf.id, true)
-    }, [selectedBookshelf])
+        if (bookshelves.length) {
+            setSelectedBookshelf(bookshelves[0]);
+        }
+    }, [user])
 
-    const onSearchChange = (value: string) => {
-        setEnableSearch(value.trim() !== '')
-        fetchBooks(value)
+    const onSetTab = (tab) => {
+        setSearch({value: SearchValue.value, isLoading: false})
+        setEnableSearch(false);
+        setSelectedBookshelf(tab);
     }
 
     return (
-        <DefaultLayout onSearchChange={onSearchChange} isSearchLoading={enableSearch && isBooksLoading}>
+        <DefaultLayout>
             <Grid.Container gap={2}>
                 <Grid xs={2}>
-                    <Sidebar selectedTab={selectedBookshelf.id} tabs={bookshelves} setTab={setSelectedBookshelf}/>
+                    <Sidebar selectedTab={selectedBookshelf ? selectedBookshelf.id : -1} tabs={bookshelves}
+                             setTab={onSetTab}/>
                 </Grid>
                 <Grid xs={10} direction={'column'}>
-                    <BookList books={books} title={enableSearch ? 'Search' : selectedBookshelf.title}
-                              isLoading={isBooksLoading} bookshelves={bookshelves}/>
+                    {selectedBookshelf && !enableSearch ?
+                        <Bookshelf bookshelf={selectedBookshelf}/> :
+                        selectedBookshelf && <SearchBooks value={SearchValue.value}/>
+                    }
                 </Grid>
             </Grid.Container>
 

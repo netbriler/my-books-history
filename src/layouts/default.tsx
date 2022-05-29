@@ -1,34 +1,34 @@
 import {Col, Container, Row, useTheme} from "@nextui-org/react"
 import Head from "next/head";
-import React, {FC, useContext, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import AuthModal from "../components/auth-modal";
 import Navbar from "../components/navbar";
-import {Context} from "../pages/_app";
-import {IBook} from "../types/book";
+import {userAPI} from "../services/UserService";
+import {selectAuth, setUser} from "../store/reducers/authSlice";
+import {useAppDispatch, useAppSelector} from "../store/store";
 import styles from "./Default.module.css";
 
 interface DefaultLayoutProps {
     title?: string;
     children?: React.ReactNode;
-    isSearchLoading: boolean;
-    onSearchChange: (value: string) => void
 }
 
-const DefaultLayout: FC<DefaultLayoutProps> = ({
-                                                   children,
-                                                   isSearchLoading, onSearchChange, title
-                                               }) => {
+const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
     const {isDark} = useTheme();
-    const {store} = useContext(Context);
-    const [showAuthModal, setAuthModal] = useState(false)
+    const {data: user, error, isFetching} = userAPI.useGetMeQuery(null)
+
+    const dispatch = useAppDispatch();
+    const {user: authUser} = useAppSelector(selectAuth);
 
     useEffect(() => {
-        const checkAuth = async () => {
-            await store.checkAuth();
-            setAuthModal(!store.isAuth)
+        if (isFetching) {
+            return
         }
-        checkAuth()
-    }, [])
+
+        if (user !== undefined) {
+            dispatch(setUser({user: user}))
+        }
+    }, [isFetching])
 
     return (
         <>
@@ -36,7 +36,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({
                 <title>{title || 'My Books History'}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
-            <Navbar isSearchLoading={isSearchLoading} onSearchChange={onSearchChange} isDark={isDark}/>
+            <Navbar isDark={isDark}/>
             <Container lg={true}>
                 <Row>
                     <Col className={styles.layout_content}>
@@ -54,7 +54,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({
                             alt="gradient violet background"
                         />
                     </>}
-                    <AuthModal visible={showAuthModal}/>
+                    <AuthModal visible={!isFetching && !authUser}/>
                 </Row>
             </Container>
         </>
