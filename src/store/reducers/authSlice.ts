@@ -24,7 +24,7 @@ export const authSlice = createSlice({
 
             state.user = action.payload.user;
 
-            if(action.payload.token !== undefined){
+            if (action.payload.token !== undefined) {
                 state.token = action.payload.token;
                 localStorage.setItem('token', action.payload.token);
             }

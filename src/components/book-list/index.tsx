@@ -1,6 +1,5 @@
 import {Grid, Loading, Pagination, Text} from "@nextui-org/react";
-import React, {FC, useEffect, useState} from "react";
-import useDebounce from "../../hooks/useDebounce";
+import React, {FC} from "react";
 import {useIsMobile} from "../../hooks/useMediaQuery";
 import {selectAuth} from "../../store/reducers/authSlice";
 import {useAppSelector} from "../../store/store";
@@ -21,8 +20,7 @@ const BookList: FC<BookListProps> = ({booksData, title = '', isLoading = false, 
     const {user} = useAppSelector(selectAuth);
     const isMobile = useIsMobile();
 
-    if(page > total){
-        console.log(page, total)
+    if (page > 1 && page > total) {
         onPageChange(total)
     }
 

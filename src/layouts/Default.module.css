@@ -1,4 +1,4 @@
-.layout_content{
+.layout_content {
     z-index: var(--nextui-zIndices-10);
     max-width: 100%;
 }
@@ -19,7 +19,7 @@
     animation: flasher 200ms 100ms ease forwards;
 }
 
-.layout__gradient_blue{
+.layout__gradient_blue {
     opacity: 0;
     position: fixed;
     animation: flasher 200ms 100ms ease forwards;

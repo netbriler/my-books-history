@@ -1,4 +1,5 @@
 import {FC, useState} from "react";
+import {useMediaQuery} from "../../hooks/useMediaQuery";
 import {bookAPI} from "../../services/BookService";
 import {IBookshelf} from "../../types/book";
 import BookList from "../book-list";
@@ -9,7 +10,8 @@ interface BookshelfProps {
 }
 
 const Bookshelf: FC<BookshelfProps> = ({bookshelf}) => {
-    const maxResults = 21;
+    const isLg = useMediaQuery(1400);
+    const maxResults = isLg ? 24 : 21;
 
     const [page, setPage] = useState(1)
     const {data: booksData, isLoading, isUninitialized} = bookAPI.useGetBookshelfBooksQuery({

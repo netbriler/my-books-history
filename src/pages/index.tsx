@@ -40,11 +40,11 @@ const Index = () => {
     return (
         <DefaultLayout>
             <Grid.Container gap={2} direction={isMobile ? 'column' : 'row'}>
-                <Grid xs={isMobile ? 12 : 3} sm={3} md={2}>
+                <Grid xs={isMobile ? 12 : 3} sm={3} lg={2}>
                     <Sidebar selectedTab={selectedBookshelf ? selectedBookshelf.id : -1} tabs={bookshelves}
                              setTab={onSetTab}/>
                 </Grid>
-                <Grid xs={isMobile ? 12 : 9} sm={9} md={10} direction={'column'}>
+                <Grid xs={isMobile ? 12 : 9} sm={9} lg={10} direction={'column'}>
                     {selectedBookshelf && !enableSearch ?
                         <Bookshelf bookshelf={selectedBookshelf}/> :
                         selectedBookshelf && <SearchBooks value={SearchValue.value}/>

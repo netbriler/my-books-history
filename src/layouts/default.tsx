@@ -1,6 +1,6 @@
 import {Col, Container, Row, useTheme} from "@nextui-org/react"
 import Head from "next/head";
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useEffect} from "react";
 import AuthModal from "../components/auth-modal";
 import Navbar from "../components/navbar";
 import {userAPI} from "../services/UserService";

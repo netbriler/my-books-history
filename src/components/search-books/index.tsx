@@ -1,4 +1,5 @@
 import {FC, useContext, useEffect, useState} from "react";
+import {useMediaQuery} from "../../hooks/useMediaQuery";
 import {SearchContext} from "../../pages/_app";
 import {bookAPI} from "../../services/BookService";
 import BookList from "../book-list";
@@ -10,10 +11,10 @@ interface SearchBooksProps {
 
 
 const SearchBooks: FC<SearchBooksProps> = ({value}) => {
-    const maxResults = 21;
+    const isLg = useMediaQuery(1400);
+    const maxResults = isLg ? 24 : 21;
 
     const [page, setPage] = useState(1)
-
     const {data: booksData, isFetching, isLoading, isUninitialized} = bookAPI.useSearchBooksQuery({
         q: value,
         params: {
