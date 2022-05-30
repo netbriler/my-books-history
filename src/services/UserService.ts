@@ -7,6 +7,7 @@ export const userAPI = createApi({
     reducerPath: 'userAPI',
     baseQuery: baseQueryWithReauth,
     tagTypes: ['User'],
+    refetchOnFocus: true,
     endpoints: (build) => ({
         getMe: build.query<IUser, null>({
             query: () => ({

@@ -1,4 +1,4 @@
-import {FC, useContext, useEffect} from "react";
+import {FC, useContext, useEffect, useState} from "react";
 import {SearchContext} from "../../pages/_app";
 import {bookAPI} from "../../services/BookService";
 import BookList from "../book-list";
@@ -10,8 +10,20 @@ interface SearchBooksProps {
 
 
 const SearchBooks: FC<SearchBooksProps> = ({value}) => {
-    const {data: booksData, isFetching, isLoading, isUninitialized } = bookAPI.useSearchBooksQuery(value);
-    const books = booksData !== undefined ? booksData.items : [];
+    const maxResults = 21;
+
+    const [page, setPage] = useState(1)
+
+    const {data: booksData, isFetching, isLoading, isUninitialized} = bookAPI.useSearchBooksQuery({
+        q: value,
+        params: {
+            maxResults,
+            startIndex: maxResults * (page - 1),
+        }
+    }, {
+        skip: value.trim() === ''
+    });
+
 
     const {setSearch} = useContext(SearchContext);
 
@@ -20,7 +32,9 @@ const SearchBooks: FC<SearchBooksProps> = ({value}) => {
     }, [isFetching])
 
     return (
-        <BookList books={books} title={'Search'} isLoading={isLoading || isUninitialized }/>
+        <BookList booksData={booksData} title={'Search'} isLoading={isLoading || isUninitialized}
+                  onPageChange={setPage} page={page}
+                  total={booksData !== undefined ? Math.ceil(booksData.totalItems / maxResults) : 1}/>
     );
 };
 

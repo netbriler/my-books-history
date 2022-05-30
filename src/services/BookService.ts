@@ -1,40 +1,63 @@
 import {createApi} from "@reduxjs/toolkit/dist/query/react";
-import {IBook} from "../types/book";
+import {IBook, IBookEdit, IBooksResponse} from "../types/book";
 import {baseQueryWithReauth} from "./BaseService";
 
-interface IBookshelfBooksResponse {
-    totalItems: number;
-    items: IBook[];
+
+export interface IBookListQueryParams {
+    maxResults: number;
+    startIndex: number;
+}
+
+export interface IBooksSearchParams {
+    q: string;
+    params: IBookListQueryParams;
+}
+
+export interface IBookshelfBooksParams {
+    id: number;
+    params: IBookListQueryParams;
 }
 
 export const bookAPI = createApi({
     reducerPath: 'bookAPI',
     baseQuery: baseQueryWithReauth,
     tagTypes: ['Book'],
+    refetchOnFocus: true,
     endpoints: (build) => ({
-        getBookshelfBooks: build.query<IBookshelfBooksResponse, number>({
-            query: (id: number) => ({
-                url: `/api/v1/bookshelves/${id}/`,
-            }),
-            providesTags: () => {
-                return ['Book']
-            }
-        }),
-        searchBooks: build.query<IBookshelfBooksResponse, string>({
-            query: (q: string) => ({
-                url: `/api/v1/books/search`,
+        getBookshelfBooks: build.query<IBooksResponse, IBookshelfBooksParams>({
+            query: (props) => ({
+                url: `/api/v1/bookshelves/${props.id}/`,
                 params: {
-                    q: q,
-                    printType: 'books',
-                    maxResults: 16,
-                    projection: 'lite'
+                    maxResults: 21,
+                    startIndex: 0,
+                    ...props.params
                 }
             }),
-            providesTags: result => {
-                return ['Book']
-            }
+            providesTags: (result) =>
+                result ?
+                    [...result.items.map(({google_id: id}) => ({type: 'Book', id} as const)),
+                        {type: 'Book', id: 'LIST'},
+                    ] : [{type: 'Book', id: 'LIST'}],
         }),
-        setBookBookshelves: build.mutation<IBook, IBook>({
+        searchBooks: build.query<IBooksResponse, IBooksSearchParams>({
+            query: (props) => ({
+                url: `/api/v1/books/search`,
+                params: {
+                    q: props.q,
+                    printType: 'books',
+                    maxResults: 21,
+                    projection: 'lite',
+                    startIndex: 0,
+                    ...props.params
+                }
+            }),
+            providesTags: (result) =>
+                result ?
+                    [...result.items.map(({google_id: id}) => ({type: 'Book', id} as const)),
+                        {type: 'Book', id: 'LIST'},
+                    ] : [{type: 'Book', id: 'LIST'}],
+        }),
+        setBookBookshelves: build.mutation<IBook, IBookEdit>({
             query: (book) => {
                 const urlencoded = new URLSearchParams();
                 book.bookshelves.map((i) => {
@@ -42,12 +65,13 @@ export const bookAPI = createApi({
                 })
 
                 return ({
-                    url: `/api/v1/books/${book.google_id}/setBookshelves`,
+                    url: `/api/v1/books/${book.id}/setBookshelves`,
                     method: 'POST',
                     body: urlencoded
                 })
             },
-            invalidatesTags: ['Book']
+            invalidatesTags: (result, error, book) =>
+                [{type: 'Book', 'id': book.id}, {type: 'Book', 'id': 'LIST'}]
         }),
     })
 })

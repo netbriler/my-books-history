@@ -15,7 +15,6 @@ const Index = () => {
     const bookshelves = user !== null ? user.bookshelves : [];
 
     const isMobile = useIsMobile();
-    console.log(isMobile)
 
     const [selectedBookshelf, setSelectedBookshelf] = useState<IBookshelf | null>(null)
     const [enableSearch, setEnableSearch] = useState<boolean>(false)

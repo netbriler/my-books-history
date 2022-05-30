@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useState} from "react";
 import {bookAPI} from "../../services/BookService";
 import {IBookshelf} from "../../types/book";
 import BookList from "../book-list";
@@ -9,11 +9,21 @@ interface BookshelfProps {
 }
 
 const Bookshelf: FC<BookshelfProps> = ({bookshelf}) => {
-    const {data: booksData, isLoading, isUninitialized} = bookAPI.useGetBookshelfBooksQuery(bookshelf.id);
-    const books = booksData !== undefined ? booksData.items : [];
+    const maxResults = 21;
+
+    const [page, setPage] = useState(1)
+    const {data: booksData, isLoading, isUninitialized} = bookAPI.useGetBookshelfBooksQuery({
+        id: bookshelf.id,
+        params: {
+            maxResults,
+            startIndex: maxResults * (page - 1),
+        }
+    });
 
     return (
-        <BookList books={books} title={bookshelf.title} isLoading={isLoading || isUninitialized}/>
+        <BookList booksData={booksData} title={bookshelf.title} isLoading={isLoading || isUninitialized}
+                  onPageChange={setPage} page={page}
+                  total={booksData !== undefined ? Math.ceil(booksData.totalItems / maxResults) : 1}/>
     );
 };
 

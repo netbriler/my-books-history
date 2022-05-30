@@ -15,17 +15,15 @@ const BookItem: FC<BookItemProps> = ({book, bookshelves}) => {
     const defaultValue = (book.bookshelves !== undefined) ? book.bookshelves.map(i => i.toString()) : [];
 
     const [selected, setSelected] = useState<string[]>(defaultValue)
-    const debouncedSearchTerm = useDebounce(selected, 500);
+    const debouncedTerm = useDebounce(selected, 500);
 
     const [updatePost] = bookAPI.useSetBookBookshelvesMutation()
 
     useEffect(() => {
         if (JSON.stringify(defaultValue.sort()) !== JSON.stringify(selected.sort())) {
-            const newBook = JSON.parse(JSON.stringify(book))
-            newBook.bookshelves = selected;
-            updatePost(newBook)
+            updatePost({id: book.google_id, bookshelves: selected})
         }
-    }, [debouncedSearchTerm])
+    }, [debouncedTerm])
 
     return (
         <Grid className={'flasher'} justify={'center'}>
