@@ -13,7 +13,7 @@ export default class AuthService {
 
     static logout() {
         localStorage.removeItem('token');
-        return axios.get(this._apiBase + '/oauth/logout')
+        return axios.get(this._apiBase + '/oauth/logout', {withCredentials: true})
     }
 
 }
