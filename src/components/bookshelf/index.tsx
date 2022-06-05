@@ -6,7 +6,7 @@ import BookList from "../book-list";
 
 
 interface BookshelfProps {
-    bookshelf: IBookshelf
+    bookshelf: IBookshelf;
 }
 
 const Bookshelf: FC<BookshelfProps> = ({bookshelf}) => {

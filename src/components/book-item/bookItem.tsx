@@ -8,7 +8,7 @@ import BookShelfTooltip from "./bookShelfTooltip";
 
 interface BookItemProps {
     book: IBook;
-    bookshelves: IBookshelf[]
+    bookshelves: IBookshelf[];
 }
 
 const BookItem: FC<BookItemProps> = ({book, bookshelves}) => {

@@ -6,7 +6,7 @@ import BookList from "../book-list";
 
 
 interface SearchBooksProps {
-    value: string
+    value: string;
 }
 
 

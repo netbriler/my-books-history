@@ -2,8 +2,11 @@ import {IBookshelf} from "./book";
 
 
 export interface IUser {
-    id: string,
-    google_id: string,
+    id: string;
+    google_id: string;
     email: string;
-    bookshelves: IBookshelf[]
+    name: string;
+    picture: string;
+    locale: string;
+    bookshelves: IBookshelf[];
 }

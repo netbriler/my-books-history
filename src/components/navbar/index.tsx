@@ -8,7 +8,7 @@ import ThemeToggle from "../theme-toggle"
 import styles from "./Navbar.module.css";
 
 export interface Props {
-    isDark: boolean
+    isDark: boolean;
 }
 
 const Navbar: React.FC<Props> = ({isDark}) => {

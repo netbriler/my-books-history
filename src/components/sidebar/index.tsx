@@ -7,7 +7,7 @@ import styles from "./Sidebar.module.css";
 interface SidebarProps {
     selectedTab: number;
     tabs: IBookshelf[];
-    setTab: (id: IBookshelf) => void,
+    setTab: (id: IBookshelf) => void;
 }
 
 const Sidebar: FC<SidebarProps> = ({selectedTab, tabs, setTab}) => {

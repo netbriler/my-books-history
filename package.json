@@ -16,7 +16,7 @@
     "@nextui-org/react": "^1.0.0-beta.6",
     "@reduxjs/toolkit": "^1.8.2",
     "@types/react-redux": "^7.1.24",
-    "axios": "^0.27.1",
+    "async-mutex": "^0.3.2",
     "classnames": "^2.3.1",
     "next": "^12.1.5",
     "next-themes": "^0.0.15",

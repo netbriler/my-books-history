@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import AuthService from "../../API/AuthService";
 import {IUser} from "../../types/user";
 import {RootState} from "../store";
 
@@ -30,7 +29,7 @@ export const authSlice = createSlice({
             }
         },
         logout: (state) => {
-            AuthService.logout()
+            fetch(process.env.BASE_URL + '/oauth/logout', {credentials: 'include'});
             localStorage.removeItem('token');
             state.user = null;
             state.token = null;

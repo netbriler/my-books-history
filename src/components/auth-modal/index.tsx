@@ -1,6 +1,5 @@
 import {Button, Card, Divider, Modal, Text} from "@nextui-org/react";
 import React from "react";
-import AuthService from "../../API/AuthService";
 
 interface AuthModalProps {
     visible: boolean;
@@ -8,7 +7,7 @@ interface AuthModalProps {
 
 const AuthModal: React.FC<AuthModalProps> = ({visible}) => {
     const submitHandler = () => {
-        AuthService.login()
+        window.location.href = process.env.BASE_URL + '/oauth/google';
     };
 
     return (
