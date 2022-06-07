@@ -1,29 +1,25 @@
 import {Grid} from "@nextui-org/react";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Bookshelf from "../components/bookshelf";
 import SearchBooks from "../components/search-books";
 import Sidebar from "../components/sidebar";
 import {useIsMobile} from "../hooks/useMediaQuery";
 import DefaultLayout from "../layouts/default"
 import {selectAuth} from "../store/reducers/authSlice";
-import {useAppSelector} from "../store/store";
+import {selectSearchEnable, setEnable} from "../store/reducers/searchSlice";
+import {useAppDispatch, useAppSelector} from "../store/store";
 import {IBookshelf} from "../types/book";
-import {SearchContext} from "./_app";
 
 const Index = () => {
+    const dispatch = useAppDispatch();
+
     const {user} = useAppSelector(selectAuth);
     const bookshelves = user !== null ? user.bookshelves : [];
 
     const isMobile = useIsMobile();
 
+    const enableSearch = useAppSelector(selectSearchEnable);
     const [selectedBookshelf, setSelectedBookshelf] = useState<IBookshelf | null>(null)
-    const [enableSearch, setEnableSearch] = useState<boolean>(false)
-
-    const {SearchValue, setSearch} = useContext(SearchContext);
-
-    useEffect(() => {
-        setEnableSearch(SearchValue.value.trim() !== '')
-    }, [SearchValue.value])
 
     useEffect(() => {
         if (bookshelves.length) {
@@ -32,8 +28,7 @@ const Index = () => {
     }, [user])
 
     const onSetTab = (tab) => {
-        setSearch({value: SearchValue.value, isLoading: false})
-        setEnableSearch(false);
+        dispatch(setEnable(false))
         setSelectedBookshelf(tab);
     }
 
@@ -47,7 +42,7 @@ const Index = () => {
                 <Grid xs={isMobile ? 12 : 9} sm={9} lg={10} direction={'column'}>
                     {selectedBookshelf && !enableSearch ?
                         <Bookshelf bookshelf={selectedBookshelf}/> :
-                        selectedBookshelf && <SearchBooks value={SearchValue.value}/>
+                        selectedBookshelf && <SearchBooks/>
                     }
                 </Grid>
             </Grid.Container>

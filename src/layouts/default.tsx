@@ -1,4 +1,4 @@
-import {Col, Container, Row, useTheme} from "@nextui-org/react"
+import {Col, Container, Loading, Row, useTheme} from "@nextui-org/react"
 import Head from "next/head";
 import React, {FC, useEffect} from "react";
 import AuthModal from "../components/auth-modal";
@@ -41,6 +41,9 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
                 <Row>
                     <Col className={styles.layout_content}>
                         {children}
+                        {isLoading && <Col css={{display: 'flex', justifyContent: 'center'}}>
+                            <Loading type="gradient" color={'secondary'} size={'xl'}/>
+                        </Col>}
                     </Col>
                     {isDark && <>
                         <img

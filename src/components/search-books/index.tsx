@@ -1,40 +1,40 @@
-import {FC, useContext, useEffect, useState} from "react";
+import {FC, useEffect} from "react";
 import {useMediaQuery} from "../../hooks/useMediaQuery";
-import {SearchContext} from "../../pages/_app";
 import {bookAPI} from "../../services/BookService";
+import {selectSearch, setIsLoading, setPage} from "../../store/reducers/searchSlice";
+import {useAppDispatch, useAppSelector} from "../../store/store";
 import BookList from "../book-list";
 
 
 interface SearchBooksProps {
-    value: string;
 }
 
 
-const SearchBooks: FC<SearchBooksProps> = ({value}) => {
+const SearchBooks: FC<SearchBooksProps> = () => {
+    const dispatch = useAppDispatch();
+
     const isLg = useMediaQuery(1400);
     const maxResults = isLg ? 24 : 21;
 
-    const [page, setPage] = useState(1)
+    const {query, page} = useAppSelector(selectSearch);
+
     const {data: booksData, isFetching, isLoading, isUninitialized} = bookAPI.useSearchBooksQuery({
-        q: value,
+        q: query,
         params: {
             maxResults,
             startIndex: maxResults * (page - 1),
         }
     }, {
-        skip: value.trim() === ''
+        skip: query.trim() === ''
     });
 
-
-    const {setSearch} = useContext(SearchContext);
-
     useEffect(() => {
-        setSearch({isLoading: isFetching, value: value});
+        dispatch(setIsLoading(isFetching))
     }, [isFetching])
 
     return (
         <BookList booksData={booksData} title={'Search'} isLoading={isLoading || isUninitialized}
-                  onPageChange={setPage} page={page}
+                  onPageChange={page => dispatch(setPage(page))} page={page}
                   total={booksData !== undefined ? Math.ceil(booksData.totalItems / maxResults) : 1}/>
     );
 };

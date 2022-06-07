@@ -1,20 +1,23 @@
 import {Input, Loading} from "@nextui-org/react";
-import React, {FC, useContext, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import useDebounce from "../../hooks/useDebounce";
-import {SearchContext} from "../../pages/_app";
+import {selectSearch, setQuery} from "../../store/reducers/searchSlice";
+import {useAppDispatch, useAppSelector} from "../../store/store";
 
 
 interface SearchProps {
 }
 
 const Search: FC<SearchProps> = () => {
-    const {SearchValue, setSearch} = useContext(SearchContext);
+    const dispatch = useAppDispatch();
 
     const [value, setValue] = useState('')
     const debouncedSearchTerm = useDebounce(value, 500);
 
+    const {isLoading} = useAppSelector(selectSearch);
+
     useEffect(() => {
-        setSearch({isLoading: SearchValue.isLoading, value: value});
+        dispatch(setQuery(value))
     }, [debouncedSearchTerm])
 
     return (
@@ -27,7 +30,7 @@ const Search: FC<SearchProps> = () => {
                 color="secondary"
                 placeholder="Search..."
                 aria-label="Search..."
-                contentRight={SearchValue.isLoading ? <Loading color="secondary" size="xs"/> : ''}
+                contentRight={isLoading ? <Loading color="secondary" size="xs"/> : ''}
                 css={{
                     width: '100%',
                     '@smMax': {

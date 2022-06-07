@@ -19,12 +19,11 @@ interface BookListProps {
 const BookList: FC<BookListProps> = ({booksData, title = '', isLoading = false, onPageChange, page, total}) => {
     const {user} = useAppSelector(selectAuth);
     const isMobile = useIsMobile();
-
     if (page > 1 && page > total) {
         onPageChange(total)
     }
 
-    if (isLoading || booksData === undefined) {
+    if (isLoading || booksData === undefined || (page > 1 && page > total)) {
         return (
             <>
                 {title && <Text h2 size={50} weight="bold">

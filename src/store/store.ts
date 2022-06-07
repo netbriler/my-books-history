@@ -4,11 +4,12 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {bookAPI} from "../services/BookService";
 import {userAPI} from "../services/UserService";
 import authSlice from "./reducers/authSlice";
-
+import searchSlice from "./reducers/searchSlice";
 
 export const store = configureStore({
     reducer: {
         auth: authSlice,
+        search: searchSlice,
         [userAPI.reducerPath]: userAPI.reducer,
         [bookAPI.reducerPath]: bookAPI.reducer,
     },

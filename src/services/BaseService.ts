@@ -53,10 +53,10 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs,
             } finally {
                 release()
             }
+        } else {
+            await mutex.waitForUnlock()
+            result = await baseQuery(args, api, extraOptions)
         }
-    } else {
-        await mutex.waitForUnlock()
-        result = await baseQuery(args, api, extraOptions)
     }
 
     return result
