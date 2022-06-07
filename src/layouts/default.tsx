@@ -40,7 +40,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
             <Container lg={true}>
                 <Row>
                     <Col className={styles.layout_content}>
-                        {children}
+                        {!isLoading && authUser && children}
                         {isLoading && <Col css={{display: 'flex', justifyContent: 'center'}}>
                             <Loading type="gradient" color={'secondary'} size={'xl'}/>
                         </Col>}

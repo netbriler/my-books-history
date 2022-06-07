@@ -26,16 +26,18 @@ const AuthModal: React.FC<AuthModalProps> = ({visible}) => {
                 </Modal.Header>
                 <Divider/>
                 <Modal.Body>
-                    <Card color={'secondary'}>
-                        <Text
-                            css={{fontWeight: "$bold", color: "$white"}}
-                            transform="capitalize"
-                        >
-                            Notice
-                        </Text>
-                        <Text css={{fontWeight: "$bold", color: "$white"}} span>
-                            In order to use the apps you have to give permission to manage your google books
-                        </Text>
+                    <Card css={{backgroundColor: '#7928ca'}}>
+                        <Card.Body>
+                            <Text
+                                css={{fontWeight: '$bold', color: '$white'}}
+                                transform="capitalize"
+                            >
+                                Notice
+                            </Text>
+                            <Text css={{fontWeight: '$bold', color: '$white'}} span>
+                                In order to use the apps you have to give permission to manage your google books
+                            </Text>
+                        </Card.Body>
                     </Card>
                 </Modal.Body>
                 <Divider/>

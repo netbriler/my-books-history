@@ -30,7 +30,7 @@ const BookItem: FC<BookItemProps> = ({book, bookshelves}) => {
             <Tooltip trigger="click" content={<BookShelfTooltip bookshelves={bookshelves} defaultValue={defaultValue}
                                                                 onChange={setSelected}/>}
                      placement="bottomStart">
-                <Card cover hoverable clickable bordered>
+                <Card isPressable isHoverable variant="bordered">
                     {book.image ? '' :
                         <Card.Header className={styles.card_header}>
                             <Col>
@@ -50,6 +50,7 @@ const BookItem: FC<BookItemProps> = ({book, bookshelves}) => {
                         height={200}
                         width={130}
                         alt={book.title}
+                        objectFit="cover"
                     />
                 </Card>
             </Tooltip>
