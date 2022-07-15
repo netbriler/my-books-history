@@ -9,9 +9,10 @@ import styles from "./Navbar.module.css";
 
 export interface Props {
     isDark: boolean;
+    showBackButton?: boolean;
 }
 
-const Navbar: React.FC<Props> = ({isDark}) => {
+const Navbar: React.FC<Props> = ({isDark, showBackButton = false}) => {
     const [scrollPosition, setScrollPosition] = useState(
         (typeof window !== 'undefined' && window.scrollY) || 0
     );
@@ -36,15 +37,19 @@ const Navbar: React.FC<Props> = ({isDark}) => {
                 <Col>
                     <Row justify="flex-start" align="center">
                         <NextLink href="/">
-                            <Link href="/src/pages">
+                            <Link href="/">
                                 <Logo auto dark={isDark}/>
                             </Link>
                         </NextLink>
                     </Row>
                 </Col>
                 <Col>
-                    <Row>
-                        <Search/>
+                    <Row justify={'center'}>
+                        {showBackButton ? <NextLink href="/">
+                            <Link color="text">
+                                Back
+                            </Link>
+                        </NextLink> : <Search/>}
                     </Row>
                 </Col>
                 <Col className={styles.navbar_icons_container}>

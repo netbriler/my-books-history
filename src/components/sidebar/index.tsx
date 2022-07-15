@@ -1,5 +1,6 @@
 import {Dropdown, Link as NextLink, Spacer, User} from "@nextui-org/react";
 import Link from "next/link";
+import {useRouter} from "next/router";
 import React, {FC} from "react";
 import {logout, selectAuthUser} from "../../store/reducers/authSlice";
 import {useAppDispatch, useAppSelector} from "../../store/store";
@@ -15,6 +16,8 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({selectedTab, tabs, setTab}) => {
     const dispatch = useAppDispatch();
 
+    const router = useRouter()
+
     const user = useAppSelector(selectAuthUser);
     if (user == null) {
         return
@@ -24,6 +27,9 @@ const Sidebar: FC<SidebarProps> = ({selectedTab, tabs, setTab}) => {
         switch (label) {
             case 'logout':
                 dispatch(logout())
+                break;
+            case 'privacy_policy':
+                router.push('privacy')
                 break;
             default:
                 alert(`To do ${label}`)
@@ -39,16 +45,16 @@ const Sidebar: FC<SidebarProps> = ({selectedTab, tabs, setTab}) => {
                     />
                 </Dropdown.Trigger>
                 <Dropdown.Menu color="primary" aria-label="User Actions" onAction={onDropdownSelect}>
-                    <Dropdown.Item key="settings" command="ctrl+s">
+                    <Dropdown.Item key="settings">
                         My Settings
                     </Dropdown.Item>
-                    <Dropdown.Item key="privacy_policy" withDivider command="ctrl+p">
+                    <Dropdown.Item key="privacy_policy" withDivider>
                         Privacy Policy
                     </Dropdown.Item>
-                    <Dropdown.Item key="help_and_feedback" command="ctrl+h">
+                    <Dropdown.Item key="help_and_feedback">
                         Help & Feedback
                     </Dropdown.Item>
-                    <Dropdown.Item key="logout" color="error" command="ctrl+l" withDivider>
+                    <Dropdown.Item key="logout" color="error" withDivider>
                         Log Out
                     </Dropdown.Item>
                 </Dropdown.Menu>

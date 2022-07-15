@@ -27,7 +27,7 @@ const BookItem: FC<BookItemProps> = ({book, bookshelves}) => {
 
     return (
         <Grid className={'flasher'} justify={'center'}>
-            <Tooltip trigger="click" content={<BookShelfTooltip bookshelves={bookshelves} defaultValue={defaultValue}
+            <Tooltip trigger="hover" content={<BookShelfTooltip bookshelves={bookshelves} defaultValue={defaultValue}
                                                                 onChange={setSelected}/>}
                      placement="bottomStart">
                 <Card isPressable isHoverable variant="bordered">

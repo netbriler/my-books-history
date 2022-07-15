@@ -11,9 +11,10 @@ import styles from "./Default.module.css";
 interface DefaultLayoutProps {
     title?: string;
     children?: React.ReactNode;
+    showBackButton?: boolean;
 }
 
-const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
+const DefaultLayout: FC<DefaultLayoutProps> = ({children, title, showBackButton= false}) => {
     const {isDark} = useTheme();
     const {data: user, isLoading} = userAPI.useGetMeQuery(null)
 
@@ -36,7 +37,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({children, title}) => {
                 <title>{title || 'My Books History'}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
-            <Navbar isDark={isDark}/>
+            <Navbar isDark={isDark} showBackButton={showBackButton}/>
             <Container lg={true}>
                 <Row>
                     <Col className={styles.layout_content}>
