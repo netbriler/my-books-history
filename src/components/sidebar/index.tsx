@@ -62,9 +62,9 @@ const Sidebar: FC<SidebarProps> = ({selectedTab, tabs, setTab}) => {
 
             <Spacer y={1}/>
             {tabs.map(tab =>
-                <span className={styles.navbar_link} key={tab.id} onClick={() => setTab(tab)}>
+                <span className={styles.navbar_link} key={tab.id}>
                     <Link href="#">
-                        <NextLink color={tab.id === selectedTab ? 'primary' : 'text'}>
+                        <NextLink color={tab.id === selectedTab ? 'primary' : 'text'} onPress={() => setTab(tab)}>
                             {tab.title}
                         </NextLink>
                     </Link>

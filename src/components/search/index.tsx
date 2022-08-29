@@ -33,7 +33,8 @@ const Search: FC<SearchProps> = () => {
                 contentRight={isLoading ? <Loading color="secondary" size="xs"/> : ''}
                 css={{
                     width: '100%',
-                    '@smMax': {
+                    maxWidth: '1000px',
+                    '@lgMax': {
                         width: '56vw'
                     },
                 }}

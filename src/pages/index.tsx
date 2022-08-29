@@ -1,53 +1,21 @@
-import {Grid} from "@nextui-org/react";
-import React, {useEffect, useState} from "react";
-import Bookshelf from "../components/bookshelf";
-import SearchBooks from "../components/search-books";
-import Sidebar from "../components/sidebar";
-import {useIsMobile} from "../hooks/useMediaQuery";
-import DefaultLayout from "../layouts/default"
-import {selectAuth} from "../store/reducers/authSlice";
-import {selectSearchEnable, setEnable} from "../store/reducers/searchSlice";
-import {useAppDispatch, useAppSelector} from "../store/store";
-import {IBookshelf} from "../types/book";
+import {useRouter} from "next/router";
+import React from "react";
+import PublicLayout from "../layouts/public";
+import {userAPI} from "../services/UserService";
 
 const Index = () => {
-    const dispatch = useAppDispatch();
+    const router = useRouter()
 
-    const {user} = useAppSelector(selectAuth);
-    const bookshelves = user !== null ? user.bookshelves : [];
+    const {data: user} = userAPI.useGetMeQuery(null)
 
-    const isMobile = useIsMobile();
-
-    const enableSearch = useAppSelector(selectSearchEnable);
-    const [selectedBookshelf, setSelectedBookshelf] = useState<IBookshelf | null>(null)
-
-    useEffect(() => {
-        if (bookshelves.length) {
-            setSelectedBookshelf(bookshelves[0]);
-        }
-    }, [user])
-
-    const onSetTab = (tab) => {
-        dispatch(setEnable(false))
-        setSelectedBookshelf(tab);
+    if (user !== undefined) {
+        router.push('dashboard')
     }
 
     return (
-        <DefaultLayout>
-            <Grid.Container gap={2} direction={isMobile ? 'column' : 'row'}>
-                <Grid xs={isMobile ? 12 : 3} sm={3} lg={2}>
-                    <Sidebar selectedTab={selectedBookshelf ? selectedBookshelf.id : -1} tabs={bookshelves}
-                             setTab={onSetTab}/>
-                </Grid>
-                <Grid xs={isMobile ? 12 : 9} sm={9} lg={10} direction={'column'}>
-                    {selectedBookshelf && !enableSearch ?
-                        <Bookshelf bookshelf={selectedBookshelf}/> :
-                        selectedBookshelf && <SearchBooks/>
-                    }
-                </Grid>
-            </Grid.Container>
-
-        </DefaultLayout>
+        <PublicLayout>
+            Main page
+        </PublicLayout>
     );
 };
 

@@ -5,11 +5,11 @@ interface AuthModalProps {
     visible: boolean;
 }
 
-const AuthModal: React.FC<AuthModalProps> = ({visible}) => {
-    const submitHandler = () => {
-        window.location.href = process.env.BASE_URL + '/oauth/google';
-    };
+export const submitHandler = () => {
+    window.location.href = process.env.BASE_URL + '/oauth/google';
+};
 
+const AuthModal: React.FC<AuthModalProps> = ({visible}) => {
     return (
         <div>
             <Modal

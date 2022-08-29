@@ -2,7 +2,7 @@ import {Col, Container, Loading, Row, useTheme} from "@nextui-org/react"
 import Head from "next/head";
 import React, {FC, useEffect} from "react";
 import AuthModal from "../components/auth-modal";
-import Navbar from "../components/navbar";
+import CustomNavbar from "../components/custom-navbar";
 import {userAPI} from "../services/UserService";
 import {selectAuth, setUser} from "../store/reducers/authSlice";
 import {useAppDispatch, useAppSelector} from "../store/store";
@@ -11,10 +11,10 @@ import styles from "./Default.module.css";
 interface DefaultLayoutProps {
     title?: string;
     children?: React.ReactNode;
-    showBackButton?: boolean;
+    showLinks?: boolean;
 }
 
-const DefaultLayout: FC<DefaultLayoutProps> = ({children, title, showBackButton= false}) => {
+const DefaultLayout: FC<DefaultLayoutProps> = ({children, title, showLinks = false}) => {
     const {isDark} = useTheme();
     const {data: user, isLoading} = userAPI.useGetMeQuery(null)
 
@@ -37,7 +37,7 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({children, title, showBackButton=
                 <title>{title || 'My Books History'}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
-            <Navbar isDark={isDark} showBackButton={showBackButton}/>
+            <CustomNavbar isDark={isDark} showLinks={showLinks}/>
             <Container lg={true}>
                 <Row>
                     <Col className={styles.layout_content}>

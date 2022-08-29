@@ -1,9 +1,9 @@
 import React from "react";
-import DefaultLayout from "../layouts/default"
+import PublicLayout from "../layouts/public";
 
 const Privacy = () => {
     return (
-        <DefaultLayout showBackButton={true}>
+        <PublicLayout title={'Privacy Policy'}>
             <h1>Privacy Policy</h1>
             <p>Last updated: July 15, 2022</p>
             <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your
@@ -290,7 +290,7 @@ const Privacy = () => {
                 <li>By email: netbriler@gmail.com</li>
             </ul>
 
-        </DefaultLayout>
+        </PublicLayout>
     );
 };
 
