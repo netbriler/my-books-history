@@ -35,7 +35,7 @@ const CustomNavbar: React.FC<Props> = ({isDark, showLinks = false}) => {
 
     return (
         <div className={cn(styles.navbar, {[`${styles.navbar_blur}`]: showBlur})}>
-            <Navbar variant={'floating'}>
+            <Navbar variant={'floating'} disableShadow={true}>
                 <Navbar.Brand>
                     <NextLink href="/dashboard">
                         <Link href="/">
