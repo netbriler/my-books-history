@@ -14,7 +14,8 @@
 .title {
     min-width: 400px;
     font-size: 48px;
-    line-height: 64px;
+    line-height: 50px;
+    margin-bottom: 32px;
 }
 
 .title span {
@@ -26,7 +27,6 @@
 }
 
 .description {
-    color: rgba(0, 0, 0, .6);
     font-size: 16px;
     line-height: 24px;
     font-family: 'Poppins';
